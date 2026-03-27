@@ -4,17 +4,21 @@ import { useState } from "react";
 import { Sparkles, Loader2, CheckCircle2, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/components/LanguageProvider";
+import DesignBriefModal, { type DesignBrief } from "@/components/DesignBriefModal";
 
 export default function NewCasePage() {
   const router = useRouter();
   const { t } = useLanguage();
   const [problem, setProblem] = useState("");
-  const [type, setType] = useState("branding");
+  const [type, setType] = useState("design");
   const [showModal, setShowModal] = useState(false);
+  const [showDesignBrief, setShowDesignBrief] = useState(false);
+  const [designBrief, setDesignBrief] = useState<DesignBrief | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [lead, setLead] = useState({ company: "", phone: "", email: "" });
 
   const consultingTypes = [
+    { id: 'design', label: '브랜드 & 로고 디자인', desc: '로고, 패키지, 아이덴티티 디자인 특화' },
     { id: 'branding', ...t.thinIntake.types.branding },
     { id: 'marketing', ...t.thinIntake.types.marketing },
     { id: 'sales', ...t.thinIntake.types.sales },
@@ -35,7 +39,7 @@ export default function NewCasePage() {
       const res = await fetch('/api/consult', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input: problem, type })
+        body: JSON.stringify({ input: problem, type, designBrief: designBrief ?? undefined })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
@@ -76,24 +80,46 @@ export default function NewCasePage() {
           <div className="space-y-4">
             <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">{t.thinIntake.step1}</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {consultingTypes.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => setType(c.id)}
-                  className={`p-4 rounded-xl border text-left transition-all ${
-                    type === c.id
-                      ? 'bg-purple-500/10 border-purple-500 shadow-[0_0_15px_rgba(147,51,234,0.15)] ring-1 ring-purple-500'
-                      : 'bg-black/40 border-white/10 hover:bg-white/5'
-                  }`}
-                >
-                  <div className="flex justify-between items-center mb-1">
-                    <h4 className={`text-sm font-bold ${type === c.id ? 'text-purple-400' : 'text-zinc-300'}`}>{c.label}</h4>
-                    {type === c.id && <CheckCircle2 className="w-4 h-4 text-purple-400" />}
-                  </div>
-                  <p className="text-zinc-500 text-xs break-keep">{c.desc}</p>
-                </button>
-              ))}
+              {consultingTypes.map((c) => {
+                const isDesign = c.id === 'design';
+                const active = type === c.id;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => {
+                      setType(c.id);
+                      if (isDesign) setShowDesignBrief(true);
+                    }}
+                    className={`p-4 rounded-xl border text-left transition-all ${
+                      active
+                        ? 'bg-purple-500/10 border-purple-500 shadow-[0_0_15px_rgba(147,51,234,0.15)] ring-1 ring-purple-500'
+                        : 'bg-black/40 border-white/10 hover:bg-white/5'
+                    } ${isDesign ? 'sm:col-span-2' : ''}`}
+                  >
+                    <div className="flex justify-between items-center mb-1">
+                      <div className="flex items-center gap-2">
+                        {isDesign && (
+                          <span className="text-xs font-bold tracking-wider text-purple-400 bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 rounded-full">
+                            CONNECTO 특화
+                          </span>
+                        )}
+                        <h4 className={`text-sm font-bold ${active ? 'text-purple-400' : 'text-zinc-300'}`}>{c.label}</h4>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {active && designBrief && isDesign && (
+                          <span className="text-xs text-emerald-400 font-medium">의뢰서 완성 ✓</span>
+                        )}
+                        {active && !isDesign && <CheckCircle2 className="w-4 h-4 text-purple-400" />}
+                        {isDesign && (
+                          <span className="text-xs text-zinc-500">클릭하여 의뢰서 작성 →</span>
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-zinc-500 text-xs break-keep">{c.desc}</p>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -122,6 +148,20 @@ export default function NewCasePage() {
           </div>
         </form>
       </div>
+
+      {/* Design Brief Modal */}
+      {showDesignBrief && (
+        <DesignBriefModal
+          onComplete={(brief) => {
+            setDesignBrief(brief);
+            setShowDesignBrief(false);
+          }}
+          onClose={() => {
+            setShowDesignBrief(false);
+            if (!designBrief) setType("branding");
+          }}
+        />
+      )}
 
       {/* Lead Contact Modal */}
       {showModal && (

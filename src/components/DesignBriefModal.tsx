@@ -1,0 +1,422 @@
+"use client";
+
+import { useState } from "react";
+import { X, ChevronRight, ChevronLeft, Check } from "lucide-react";
+
+/* ── Types ── */
+export interface DesignBrief {
+  designTypes: string[];
+  styles: string[];
+  competitors: string;
+  namingDirection: string[];
+  timeline: string;
+  budget: string;
+}
+
+interface Props {
+  onComplete: (brief: DesignBrief) => void;
+  onClose: () => void;
+}
+
+/* ── Static data ── */
+const DESIGN_TYPES = [
+  { id: "logo", label: "로고 디자인", emoji: "✦" },
+  { id: "brand_identity", label: "브랜드 아이덴티티", emoji: "◈" },
+  { id: "package", label: "패키지 디자인", emoji: "⬡" },
+  { id: "biz_card", label: "명함 / 스테이셔너리", emoji: "▣" },
+  { id: "sns", label: "SNS 콘텐츠 디자인", emoji: "◉" },
+  { id: "brochure", label: "브로슈어 / 카탈로그", emoji: "◧" },
+  { id: "signage", label: "간판 / 사이니지", emoji: "⬜" },
+  { id: "goods", label: "굿즈 / 유니폼", emoji: "◆" },
+];
+
+const STYLES = [
+  {
+    id: "casual",
+    label: "Casual & Friendly",
+    desc: "따뜻하고 친근한",
+    bg: "from-orange-500/20 to-yellow-500/10",
+    border: "border-orange-500/30",
+    accent: "text-orange-400",
+  },
+  {
+    id: "elegant",
+    label: "Elegant & Luxury",
+    desc: "고급스럽고 세련된",
+    bg: "from-yellow-600/20 to-amber-500/5",
+    border: "border-yellow-600/30",
+    accent: "text-yellow-500",
+  },
+  {
+    id: "retro",
+    label: "Retro & Vintage",
+    desc: "복고적이고 감성적인",
+    bg: "from-amber-700/20 to-red-800/10",
+    border: "border-amber-700/30",
+    accent: "text-amber-600",
+  },
+  {
+    id: "minimal",
+    label: "Modern & Minimal",
+    desc: "깔끔하고 심플한",
+    bg: "from-zinc-400/10 to-zinc-600/5",
+    border: "border-zinc-500/30",
+    accent: "text-zinc-300",
+  },
+  {
+    id: "bold",
+    label: "Bold & Energetic",
+    desc: "강렬하고 역동적인",
+    bg: "from-red-600/20 to-orange-600/10",
+    border: "border-red-500/30",
+    accent: "text-red-400",
+  },
+  {
+    id: "natural",
+    label: "Natural & Organic",
+    desc: "자연스럽고 유기적인",
+    bg: "from-green-700/20 to-emerald-600/10",
+    border: "border-green-600/30",
+    accent: "text-green-400",
+  },
+  {
+    id: "tech",
+    label: "Tech & Futuristic",
+    desc: "첨단적이고 미래지향적",
+    bg: "from-blue-600/20 to-cyan-500/10",
+    border: "border-blue-500/30",
+    accent: "text-blue-400",
+  },
+  {
+    id: "playful",
+    label: "Playful & Creative",
+    desc: "유쾌하고 창의적인",
+    bg: "from-pink-500/20 to-purple-500/10",
+    border: "border-pink-500/30",
+    accent: "text-pink-400",
+  },
+  {
+    id: "corporate",
+    label: "Corporate & Professional",
+    desc: "신뢰감 있고 전문적인",
+    bg: "from-indigo-600/20 to-blue-700/10",
+    border: "border-indigo-500/30",
+    accent: "text-indigo-400",
+  },
+  {
+    id: "artisan",
+    label: "Artisan & Handcrafted",
+    desc: "장인 정신과 수공예 감성",
+    bg: "from-stone-500/20 to-amber-900/10",
+    border: "border-stone-500/30",
+    accent: "text-stone-400",
+  },
+];
+
+const NAMING_DIRECTIONS = [
+  { id: "korean", label: "한국어", desc: "순수 한글 네이밍" },
+  { id: "english", label: "영어", desc: "영문 단어 기반" },
+  { id: "mixed", label: "한영 혼합", desc: "한글 + 영어 조합" },
+  { id: "coined", label: "신조어 / 조어", desc: "새롭게 만든 단어" },
+  { id: "loanword", label: "외래어 (음차)", desc: "외국어 발음 차용" },
+  { id: "existing", label: "이미 브랜드명 있음", desc: "네이밍 불필요" },
+];
+
+const TIMELINES = [
+  { id: "1w", label: "1주 이내", sub: "긴급 프로젝트" },
+  { id: "2_3w", label: "2~3주", sub: "일반 진행" },
+  { id: "1m", label: "1개월", sub: "여유 있는 진행" },
+  { id: "flexible", label: "유연하게", sub: "일정 협의 가능" },
+];
+
+const BUDGETS = [
+  { id: "under50", label: "50만원 이하" },
+  { id: "50_100", label: "50 ~ 100만원" },
+  { id: "100_300", label: "100 ~ 300만원" },
+  { id: "over300", label: "300만원 이상" },
+  { id: "undecided", label: "미정 / 협의" },
+];
+
+const STEPS = ["디자인 항목", "스타일", "경쟁사", "네이밍", "일정 & 예산"];
+
+/* ── Component ── */
+export default function DesignBriefModal({ onComplete, onClose }: Props) {
+  const [step, setStep] = useState(0);
+  const [brief, setBrief] = useState<DesignBrief>({
+    designTypes: [],
+    styles: [],
+    competitors: "",
+    namingDirection: [],
+    timeline: "",
+    budget: "",
+  });
+
+  function toggleItem<K extends keyof DesignBrief>(
+    key: K,
+    id: string,
+    max?: number
+  ) {
+    setBrief((prev) => {
+      const arr = prev[key] as string[];
+      if (arr.includes(id)) return { ...prev, [key]: arr.filter((x) => x !== id) };
+      if (max && arr.length >= max) return prev;
+      return { ...prev, [key]: [...arr, id] };
+    });
+  }
+
+  function setSingle(key: keyof DesignBrief, value: string) {
+    setBrief((prev) => ({ ...prev, [key]: value }));
+  }
+
+  const canNext = [
+    brief.designTypes.length > 0,
+    brief.styles.length > 0,
+    true, // competitors optional
+    brief.namingDirection.length > 0,
+    brief.timeline !== "" && brief.budget !== "",
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+      <div className="relative w-full max-w-2xl glass rounded-2xl border border-white/10 shadow-2xl flex flex-col max-h-[90vh]">
+
+        {/* Header */}
+        <div className="flex items-center justify-between px-8 pt-7 pb-5 border-b border-white/10 shrink-0">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.2em] text-purple-400 uppercase mb-1">
+              Brand & Design Brief
+            </p>
+            <h2 className="text-xl font-black text-white">브랜드 / 디자인 의뢰서</h2>
+          </div>
+          <button onClick={onClose} className="text-zinc-500 hover:text-white transition-colors p-1">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Step progress */}
+        <div className="px-8 py-4 shrink-0">
+          <div className="flex items-center gap-1.5">
+            {STEPS.map((label, i) => (
+              <div key={i} className="flex items-center gap-1.5 flex-1 min-w-0">
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${
+                  i < step ? "bg-purple-500 text-white" :
+                  i === step ? "bg-purple-600 text-white ring-2 ring-purple-400/40" :
+                  "bg-white/5 text-zinc-500"
+                }`}>
+                  {i < step ? <Check className="w-3 h-3" /> : i + 1}
+                </div>
+                <span className={`text-xs truncate hidden sm:block transition-colors ${
+                  i === step ? "text-zinc-200 font-medium" : "text-zinc-600"
+                }`}>{label}</span>
+                {i < STEPS.length - 1 && (
+                  <div className={`h-px flex-1 transition-all ${i < step ? "bg-purple-500/50" : "bg-white/5"}`} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="px-8 py-2 overflow-y-auto flex-1">
+
+          {/* Step 0 – 디자인 항목 */}
+          {step === 0 && (
+            <div className="space-y-4 py-2">
+              <p className="text-sm text-zinc-400 break-keep">필요한 디자인 항목을 모두 선택해 주세요.</p>
+              <div className="grid grid-cols-2 gap-3">
+                {DESIGN_TYPES.map((d) => {
+                  const active = brief.designTypes.includes(d.id);
+                  return (
+                    <button
+                      key={d.id}
+                      type="button"
+                      onClick={() => toggleItem("designTypes", d.id)}
+                      className={`flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${
+                        active
+                          ? "bg-purple-500/10 border-purple-500 ring-1 ring-purple-500"
+                          : "bg-black/40 border-white/10 hover:bg-white/5"
+                      }`}
+                    >
+                      <span className={`text-lg ${active ? "text-purple-400" : "text-zinc-500"}`}>{d.emoji}</span>
+                      <span className={`text-sm font-medium ${active ? "text-purple-300" : "text-zinc-300"}`}>{d.label}</span>
+                      {active && <Check className="w-4 h-4 text-purple-400 ml-auto shrink-0" />}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Step 1 – 스타일 */}
+          {step === 1 && (
+            <div className="space-y-4 py-2">
+              <p className="text-sm text-zinc-400">원하는 디자인 스타일을 최대 3개까지 선택해 주세요.</p>
+              <div className="grid grid-cols-2 gap-3">
+                {STYLES.map((s) => {
+                  const active = brief.styles.includes(s.id);
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={() => toggleItem("styles", s.id, 3)}
+                      className={`relative p-4 rounded-xl border text-left transition-all bg-gradient-to-br ${s.bg} ${
+                        active ? `${s.border} ring-1 ring-white/20` : "border-white/10 hover:border-white/20"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <p className={`text-sm font-bold ${s.accent}`}>{s.label}</p>
+                          <p className="text-xs text-zinc-400 mt-0.5">{s.desc}</p>
+                        </div>
+                        {active && (
+                          <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                            <Check className="w-3 h-3 text-white" />
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Step 2 – 경쟁사 */}
+          {step === 2 && (
+            <div className="space-y-4 py-4">
+              <p className="text-sm text-zinc-400 break-keep">
+                경쟁사, 경쟁 제품, 또는 디자인 레퍼런스로 참고하고 싶은 브랜드가 있다면 자유롭게 적어주세요. <span className="text-zinc-600">(선택 사항)</span>
+              </p>
+              <textarea
+                rows={7}
+                value={brief.competitors}
+                onChange={(e) => setSingle("competitors", e.target.value)}
+                placeholder={"예) 경쟁사: 올리브영, 무신사\n레퍼런스: 애플의 미니멀한 감성, 포르쉐의 고급스러운 라인감\n좋아하는 컬러: 딥 네이비 + 골드 조합"}
+                className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white placeholder:text-zinc-600 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all resize-none"
+              />
+            </div>
+          )}
+
+          {/* Step 3 – 네이밍 방향 */}
+          {step === 3 && (
+            <div className="space-y-4 py-2">
+              <p className="text-sm text-zinc-400 break-keep">브랜드 네이밍 방향을 선택해 주세요. (복수 선택 가능)</p>
+              <div className="grid grid-cols-1 gap-3">
+                {NAMING_DIRECTIONS.map((n) => {
+                  const active = brief.namingDirection.includes(n.id);
+                  return (
+                    <button
+                      key={n.id}
+                      type="button"
+                      onClick={() => toggleItem("namingDirection", n.id)}
+                      className={`flex items-center justify-between px-5 py-4 rounded-xl border text-left transition-all ${
+                        active
+                          ? "bg-purple-500/10 border-purple-500 ring-1 ring-purple-500"
+                          : "bg-black/40 border-white/10 hover:bg-white/5"
+                      }`}
+                    >
+                      <div>
+                        <p className={`text-sm font-bold ${active ? "text-purple-300" : "text-zinc-200"}`}>{n.label}</p>
+                        <p className="text-xs text-zinc-500 mt-0.5">{n.desc}</p>
+                      </div>
+                      {active && <Check className="w-4 h-4 text-purple-400 shrink-0" />}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Step 4 – 일정 & 예산 */}
+          {step === 4 && (
+            <div className="space-y-8 py-2">
+              <div className="space-y-3">
+                <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">희망 일정</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {TIMELINES.map((t) => {
+                    const active = brief.timeline === t.id;
+                    return (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => setSingle("timeline", t.id)}
+                        className={`px-5 py-4 rounded-xl border text-left transition-all ${
+                          active
+                            ? "bg-purple-500/10 border-purple-500 ring-1 ring-purple-500"
+                            : "bg-black/40 border-white/10 hover:bg-white/5"
+                        }`}
+                      >
+                        <p className={`text-sm font-bold ${active ? "text-purple-300" : "text-zinc-200"}`}>{t.label}</p>
+                        <p className="text-xs text-zinc-500 mt-0.5">{t.sub}</p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">예산 범위</p>
+                <div className="grid grid-cols-1 gap-2">
+                  {BUDGETS.map((b) => {
+                    const active = brief.budget === b.id;
+                    return (
+                      <button
+                        key={b.id}
+                        type="button"
+                        onClick={() => setSingle("budget", b.id)}
+                        className={`flex items-center justify-between px-5 py-3.5 rounded-xl border transition-all ${
+                          active
+                            ? "bg-purple-500/10 border-purple-500 ring-1 ring-purple-500"
+                            : "bg-black/40 border-white/10 hover:bg-white/5"
+                        }`}
+                      >
+                        <span className={`text-sm font-medium ${active ? "text-purple-300" : "text-zinc-300"}`}>{b.label}</span>
+                        {active && <Check className="w-4 h-4 text-purple-400" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer nav */}
+        <div className="px-8 py-5 border-t border-white/10 flex items-center justify-between shrink-0">
+          <button
+            type="button"
+            onClick={() => step === 0 ? onClose() : setStep(s => s - 1)}
+            className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-zinc-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            {step === 0 ? "취소" : "이전"}
+          </button>
+
+          <span className="text-xs text-zinc-600">{step + 1} / {STEPS.length}</span>
+
+          {step < STEPS.length - 1 ? (
+            <button
+              type="button"
+              onClick={() => setStep(s => s + 1)}
+              disabled={!canNext[step]}
+              className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl transition-all"
+            >
+              다음
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => onComplete(brief)}
+              disabled={!canNext[step]}
+              className="flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-white bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl transition-all shadow-[0_0_20px_rgba(147,51,234,0.3)]"
+            >
+              의뢰서 완성
+              <Check className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
