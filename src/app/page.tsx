@@ -72,7 +72,7 @@ export default function Home() {
               href="/cases/new"
               className="group relative inline-flex items-center gap-2 px-8 py-4 font-semibold text-white bg-purple-600 hover:bg-purple-500 rounded-xl shadow-[0_0_30px_rgba(147,51,234,0.3)] hover:shadow-[0_0_40px_rgba(147,51,234,0.5)] transition-all w-full sm:w-auto justify-center"
             >
-              AI 컨설팅 시작하기
+              무료 AI 컨설팅 시작
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
