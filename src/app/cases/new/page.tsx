@@ -62,7 +62,7 @@ export default function NewCasePage() {
   }
 
   return (
-    <main className="min-h-screen p-8 relative overflow-hidden flex flex-col items-center pb-24">
+    <main className="min-h-screen p-8 relative overflow-hidden flex flex-col items-center pb-24 pt-12">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] -z-10" />
 
