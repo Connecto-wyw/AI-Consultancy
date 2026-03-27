@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X, User } from "lucide-react";
@@ -38,10 +39,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <span className="text-white font-black text-lg tracking-[0.2em] group-hover:text-purple-300 transition-colors">
-            CONNNECTO
-          </span>
+        <Link href="/" className="flex items-center group">
+          <Image
+            src="/CONNNECTO LOGO-01.png"
+            alt="CONNNECTO"
+            width={140}
+            height={40}
+            className="h-9 w-auto object-contain group-hover:opacity-80 transition-opacity"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
