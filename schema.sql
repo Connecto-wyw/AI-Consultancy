@@ -1,65 +1,48 @@
--- User profiles
-CREATE TABLE public.users (
-  id UUID REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
-  email TEXT UNIQUE NOT NULL,
+-- =========================================================
+-- Connecto AI Consultancy - Ultra Thin MVP Schema
+-- =========================================================
+
+-- 1. Drop old tables from the previous complex workflow
+DROP VIEW IF EXISTS public.latest_case_diagnoses;
+DROP VIEW IF EXISTS public.latest_case_deliverables;
+DROP TABLE IF EXISTS public.case_reviews CASCADE;
+DROP TABLE IF EXISTS public.case_deliverables CASCADE;
+DROP TABLE IF EXISTS public.case_diagnoses CASCADE;
+DROP TABLE IF EXISTS public.case_messages CASCADE;
+DROP TABLE IF EXISTS public.case_outputs CASCADE;
+DROP TABLE IF EXISTS public.consulting_cases CASCADE;
+
+-- 2. Profiles (Keep if already exists)
+CREATE TABLE IF NOT EXISTS public.profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email TEXT UNIQUE,
   full_name TEXT,
-  role TEXT DEFAULT 'client', -- 'client' or 'human_pm'
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  company_name TEXT,
+  role TEXT NOT NULL DEFAULT 'client',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Consulting cases (Main workflow wrapper)
+-- 3. Thin MVP Consulting Cases
 CREATE TABLE public.consulting_cases (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  client_id UUID REFERENCES public.users(id) ON DELETE CASCADE,
-  status TEXT DEFAULT 'intake', -- 'intake', 'diagnosis', 'strategy', 'deliverable_generation', 'review', 'completed'
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  input_text TEXT NOT NULL,
+  consulting_type TEXT NOT NULL CHECK (consulting_type IN ('marketing', 'automation', 'branding', 'sales')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Case Messages (The raw inputs / chat history)
-CREATE TABLE public.case_messages (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  case_id UUID REFERENCES public.consulting_cases(id) ON DELETE CASCADE,
-  sender_role TEXT NOT NULL, -- 'user', 'ai', 'human_pm'
-  content TEXT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+-- 4. Case Outputs (Single JSON response mapping)
+CREATE TABLE public.case_outputs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  case_id UUID NOT NULL REFERENCES public.consulting_cases(id) ON DELETE CASCADE UNIQUE,
+  diagnosis_json JSONB NOT NULL,
+  strategy_json JSONB NOT NULL,
+  deliverables_json JSONB NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Case Diagnoses (AI analysis outputs)
-CREATE TABLE public.case_diagnoses (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  case_id UUID REFERENCES public.consulting_cases(id) ON DELETE CASCADE UNIQUE,
-  problem_definition TEXT,
-  issue_category TEXT,
-  inferred_stage TEXT,
-  priorities TEXT,
-  recommended_deliverables_jsonb JSONB,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-);
-
--- Case Deliverables (The generated deliverables)
-CREATE TABLE public.case_deliverables (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  case_id UUID REFERENCES public.consulting_cases(id) ON DELETE CASCADE,
-  deliverable_type TEXT NOT NULL, -- e.g., 'brand_intro', 'email_draft', 'scope_outline'
-  content TEXT NOT NULL,
-  is_approved BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-);
-
--- Case Reviews (Internal human PM reviews)
-CREATE TABLE public.case_reviews (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  case_id UUID REFERENCES public.consulting_cases(id) ON DELETE CASCADE,
-  pm_id UUID REFERENCES public.users(id) ON DELETE SET NULL,
-  comments TEXT,
-  status_update TEXT, -- e.g., 'approved', 'needs_revision'
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-);
-
--- RLS setup (Example: secure by default, clients see their own cases)
-ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.consulting_cases ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.case_messages ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.case_diagnoses ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.case_deliverables ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.case_reviews ENABLE ROW LEVEL SECURITY;
+-- Disable RLS for rapid MVP testing
+ALTER TABLE public.profiles DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.consulting_cases DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.case_outputs DISABLE ROW LEVEL SECURITY;
