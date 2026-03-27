@@ -57,8 +57,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500 font-medium mb-1 uppercase tracking-wider">회사</p>
-                  <p className="text-zinc-200 text-sm font-medium">Connecto Inc.</p>
-                  <p className="text-zinc-500 text-xs mt-0.5">서울특별시</p>
+                  <p className="text-zinc-200 text-sm font-medium">CONNECTO Corp.</p>
+                  <p className="text-zinc-500 text-xs mt-0.5">경기도 성남시 분당구</p>
                 </div>
               </div>
               <div className="w-full h-px bg-white/5" />
