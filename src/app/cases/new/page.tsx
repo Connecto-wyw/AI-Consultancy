@@ -69,14 +69,14 @@ export default function NewCasePage() {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] -z-10" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] -z-10" />
 
-      <div className="max-w-3xl mx-auto space-y-10">
+      <div className="max-w-6xl mx-auto space-y-10">
         <div className="space-y-5">
           <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">AI Consultancy</p>
           <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white leading-tight">{t.thinIntake.title}</h1>
           <p className="text-zinc-400 text-lg leading-relaxed break-keep max-w-2xl">{t.thinIntake.desc}</p>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="glass p-8 rounded-2xl flex flex-col gap-8 border border-white/10 shadow-2xl">
+        <form onSubmit={handleFormSubmit} className="glass p-8 rounded-2xl flex flex-col gap-8 border border-white/10 shadow-2xl max-w-3xl">
           <div className="space-y-4">
             <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">{t.thinIntake.step1}</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
