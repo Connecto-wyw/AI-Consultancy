@@ -26,6 +26,7 @@ const consultSchema = z.object({
 const requestSchema = z.object({
   input: z.string().min(1, 'Input is required'),
   type: z.string().optional().nullable(),
+  designBrief: z.any().optional().nullable(),
 });
 
 export async function POST(request: Request) {
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
 
     const input = parsedBody.data.input.trim();
     const consultingType = normalizeConsultingType(parsedBody.data.type);
+    const designBrief = parsedBody.data.designBrief ?? null;
 
     const supabase = await createClient();
     const {
@@ -91,6 +93,7 @@ export async function POST(request: Request) {
         user_id: user?.id ?? null,
         input_text: input,
         consulting_type: consultingType,
+        design_brief_json: designBrief,
       })
       .select('id')
       .single();
