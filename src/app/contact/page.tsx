@@ -31,14 +31,14 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="min-h-screen px-6 py-20 relative overflow-hidden">
+    <main className="min-h-screen px-6 pt-28 pb-20 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] -z-10" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] -z-10" />
 
       <div className="max-w-5xl mx-auto space-y-16">
-        <div className="space-y-5 pt-8">
+        <div className="space-y-5">
           <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">{c.label}</p>
-          <h1 className="text-5xl md:text-6xl font-black text-white leading-tight">
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white leading-tight">
             {c.title1}<br />
             <span className="text-gradient">{c.title2}</span>
           </h1>
