@@ -101,7 +101,7 @@ export default function NewCasePage() {
                       <div className="flex items-center gap-2">
                         {isDesign && (
                           <span className="text-xs font-bold tracking-wider text-purple-400 bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 rounded-full">
-                            CONNECTO 특화
+                            CONNNECTO 특화
                           </span>
                         )}
                         <h4 className={`text-sm font-bold ${active ? 'text-purple-400' : 'text-zinc-300'}`}>{c.label}</h4>

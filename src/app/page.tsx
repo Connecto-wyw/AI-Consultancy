@@ -41,7 +41,7 @@ const differentiators = [
 
 const processSteps = [
   { step: "01", title: "문제 제출", desc: "현재 겪고 있는 비즈니스 고민을 자유롭게 입력합니다." },
-  { step: "02", title: "AI 진단", desc: "Connecto AI가 핵심 문제를 분석하고 전략 리포트를 생성합니다." },
+  { step: "02", title: "AI 진단", desc: "CONNNECTO AI가 핵심 문제를 분석하고 전략 리포트를 생성합니다." },
   { step: "03", title: "전문가 검수", desc: "내부 PM이 결과물을 검토하고 최종 품질을 보장합니다." },
 ];
 
@@ -64,7 +64,7 @@ export default function Home() {
             <span className="text-white">사람이 완성합니다.</span>
           </h1>
           <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed break-keep">
-            Connecto는 인공지능과 전문가의 협업으로 비즈니스 문제를 진단하고,
+            CONNNECTO는 인공지능과 전문가의 협업으로 비즈니스 문제를 진단하고,
             즉시 실행 가능한 전략과 결과물을 제공하는 AI 컨설팅 에이전시입니다.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
@@ -89,13 +89,13 @@ export default function Home() {
       <section className="px-6 py-24 border-t border-white/5">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className="space-y-6">
-            <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">About Connecto</p>
+            <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">About CONNNECTO</p>
             <h2 className="text-4xl font-bold text-white leading-snug">
               컨설팅의 본질은<br />
               <span className="text-gradient">올바른 질문</span>에서 시작됩니다.
             </h2>
             <p className="text-zinc-400 leading-relaxed break-keep">
-              Connecto는 "AI가 사람을 대체한다"는 통념을 거부합니다.
+              CONNNECTO는 "AI가 사람을 대체한다"는 통념을 거부합니다.
               우리는 AI의 속도와 분석력에 시니어 컨설턴트의 판단력을 결합해,
               기업이 진짜 문제를 발견하고 빠르게 실행할 수 있도록 돕습니다.
             </p>
@@ -125,7 +125,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto space-y-14">
           <div className="text-center space-y-4">
             <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">Our Services</p>
-            <h2 className="text-4xl font-bold text-white">Connecto가 제공하는 것</h2>
+            <h2 className="text-4xl font-bold text-white">CONNNECTO가 제공하는 것</h2>
             <p className="text-zinc-400 max-w-xl mx-auto break-keep">
               단순 자문을 넘어, 즉시 쓸 수 있는 전략 결과물을 만들어 드립니다.
             </p>
@@ -193,8 +193,8 @@ export default function Home() {
       {/* ── FOOTER ── */}
       <footer className="border-t border-white/5 px-6 py-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
-          <span className="font-black tracking-[0.2em] text-zinc-400">CONNECTO</span>
-          <span>© 2026 Connecto. All rights reserved.</span>
+          <span className="font-black tracking-[0.2em] text-zinc-400">CONNNECTO</span>
+          <span>© 2026 CONNNECTO. All rights reserved.</span>
           <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
         </div>
       </footer>

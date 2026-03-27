@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Connecto | AI Consultancy",
+  title: "CONNNECTO | AI Consultancy",
   description: "The nation's first AI Consultancy with Human-touch",
 };
 

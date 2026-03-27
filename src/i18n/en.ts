@@ -1,6 +1,6 @@
 export const en = {
   landing: {
-    badge: "Connecto MVP Version 1.0",
+    badge: "CONNNECTO MVP Version 1.0",
     title1: "AI Consultancy with",
     title2: "Human Touch",
     description: "Transform vague business problems into structured diagnosis, strategic direction, and ready-to-use deliverables.",
@@ -25,7 +25,7 @@ export const en = {
     description: "Describe your business, brand, or communication challenge. Our AI consultant will diagnose the root cause and recommend the best strategic deliverables.",
     label: "What is the core issue you are facing?",
     placeholder: "e.g., Our startup offers an innovative B2B SaaS, but customers say our website looks generic. How do we differentiate?",
-    analyzing: "Your input will be analyzed using Connecto's proprietary consulting framework.",
+    analyzing: "Your input will be analyzed using CONNNECTO's proprietary consulting framework.",
     button: "Analyze Problem",
     cats: [
       { t: "Brand Positioning", d: "Define your core differentiation and messaging." },
@@ -93,7 +93,7 @@ export const en = {
     title: "Get Free Expert Consultation",
     desc: "Leave your contact info before viewing the report. A professional consultant will reach out directly.",
     company: "Company or Full Name",
-    companyPlaceholder: "e.g., Connecto Inc. / Jane Smith",
+    companyPlaceholder: "e.g., CONNNECTO Inc. / Jane Smith",
     phone: "Mobile Number",
     phonePlaceholder: "e.g., +82-10-1234-5678",
     email: "Email Address",

@@ -1,6 +1,6 @@
 export const ko = {
   landing: {
-    badge: "Connecto MVP 버전 1.0",
+    badge: "CONNNECTO MVP 버전 1.0",
     title1: "휴먼 터치가 더해진",
     title2: "AI 컨설팅 에이전시",
     description: "머릿속에 맴도는 막연한 비즈니스 고민을 명확한 진단과 전략, 그리고 실무에 즉시 쓸 수 있는 결과물로 변환해 드립니다.",
@@ -22,10 +22,10 @@ export const ko = {
   intake: {
     back: "홈으로 돌아가기",
     title: "새로운 컨설팅 의뢰",
-    description: "브랜드, 비즈니스, 커뮤니케이션에 관한 어떤 고민이든 자유롭게 털어놓아 보세요. Connecto의 AI 컨설턴트가 핵심 문제를 진단해 드립니다.",
+    description: "브랜드, 비즈니스, 커뮤니케이션에 관한 어떤 고민이든 자유롭게 털어놓아 보세요. CONNNECTO의 AI 컨설턴트가 핵심 문제를 진단해 드립니다.",
     label: "지금 겪고 있는 가장 큰 고민은 무엇인가요?",
     placeholder: "예) 혁신적인 B2B SaaS 솔루션을 만들었는데, 고객들은 우리 홈페이지가 뻔하다고 하네요. 어떻게 차별화해야 할까요?",
-    analyzing: "입력해주신 내용은 Connecto의 독자적인 컨설팅 프레임워크를 통해 분석됩니다.",
+    analyzing: "입력해주신 내용은 CONNNECTO의 독자적인 컨설팅 프레임워크를 통해 분석됩니다.",
     button: "문제 진단하기",
     cats: [
       { t: "브랜드 포지셔닝", d: "우리만의 확실한 차별화 포인트와 핵심 메시지를 도출합니다." },

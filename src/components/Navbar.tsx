@@ -40,7 +40,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <span className="text-white font-black text-lg tracking-[0.2em] group-hover:text-purple-300 transition-colors">
-            CONNECTO
+            CONNNECTO
           </span>
         </Link>
 
