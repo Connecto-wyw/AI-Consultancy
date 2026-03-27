@@ -115,11 +115,11 @@ export default function NewCasePage() {
             />
           </div>
 
-          <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+          <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <p className="text-xs text-zinc-500 max-w-sm break-keep">{t.thinIntake.timing}</p>
             <button
               type="submit"
-              className="group relative inline-flex items-center px-8 py-4 font-semibold text-white transition-all bg-purple-600 hover:bg-purple-500 rounded-xl shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] whitespace-nowrap overflow-hidden"
+              className="group relative inline-flex items-center px-8 py-4 font-semibold text-white transition-all bg-purple-600 hover:bg-purple-500 rounded-xl shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] w-full sm:w-auto justify-center overflow-hidden"
             >
               <span className="flex items-center gap-2 relative z-10">
                 <Sparkles className="w-5 h-5" />
