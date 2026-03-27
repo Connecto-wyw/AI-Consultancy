@@ -76,7 +76,7 @@ export default function NewCasePage() {
           <p className="text-zinc-400 text-lg leading-relaxed break-keep max-w-2xl mx-auto">{t.thinIntake.desc}</p>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="glass p-8 rounded-2xl flex flex-col gap-8 border border-white/10 shadow-2xl max-w-3xl">
+        <form onSubmit={handleFormSubmit} className="glass p-8 rounded-2xl flex flex-col gap-8 border border-white/10 shadow-2xl max-w-3xl mx-auto">
           <div className="space-y-4">
             <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">{t.thinIntake.step1}</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

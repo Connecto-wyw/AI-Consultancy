@@ -45,7 +45,7 @@ export default function ContactPage() {
           <p className="text-zinc-400 text-lg max-w-xl leading-relaxed break-keep mx-auto">{c.desc}</p>
         </div>
 
-        <div className="grid md:grid-cols-5 gap-8 items-start">
+        <div className="grid md:grid-cols-5 gap-8 items-start max-w-4xl mx-auto">
           {/* Contact Info */}
           <div className="md:col-span-2 space-y-5">
             <div className="glass p-6 rounded-2xl space-y-5">
