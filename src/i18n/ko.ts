@@ -97,7 +97,7 @@ export const ko = {
     phone: "휴대폰 번호",
     phonePlaceholder: "예) 010-1234-5678",
     email: "이메일 주소",
-    emailPlaceholder: "예) hello@connecto.ai",
+    emailPlaceholder: "예) hello@connecto-wyw.com",
     submit: "리포트 보기",
     submitting: "저장 중...",
   },

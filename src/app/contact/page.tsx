@@ -47,7 +47,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500 font-medium mb-1 uppercase tracking-wider">이메일</p>
-                  <p className="text-zinc-200 text-sm font-medium">hello@connecto.ai</p>
+                  <p className="text-zinc-200 text-sm font-medium">hello@connecto-wyw.com</p>
                 </div>
               </div>
               <div className="w-full h-px bg-white/5" />

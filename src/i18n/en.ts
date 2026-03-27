@@ -97,7 +97,7 @@ export const en = {
     phone: "Mobile Number",
     phonePlaceholder: "e.g., +82-10-1234-5678",
     email: "Email Address",
-    emailPlaceholder: "e.g., hello@connecto.ai",
+    emailPlaceholder: "e.g., hello@connecto-wyw.com",
     submit: "View Report",
     submitting: "Saving...",
   },
