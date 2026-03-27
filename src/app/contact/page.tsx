@@ -36,13 +36,13 @@ export default function ContactPage() {
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] -z-10" />
 
       <div className="max-w-6xl mx-auto space-y-16">
-        <div className="space-y-5">
+        <div className="space-y-5 text-center">
           <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">{c.label}</p>
           <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white leading-tight">
             {c.title1}<br />
             <span className="text-gradient">{c.title2}</span>
           </h1>
-          <p className="text-zinc-400 text-lg max-w-xl leading-relaxed break-keep">{c.desc}</p>
+          <p className="text-zinc-400 text-lg max-w-xl leading-relaxed break-keep mx-auto">{c.desc}</p>
         </div>
 
         <div className="grid md:grid-cols-5 gap-8 items-start">

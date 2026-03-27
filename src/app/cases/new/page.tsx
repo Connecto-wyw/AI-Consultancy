@@ -70,10 +70,10 @@ export default function NewCasePage() {
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] -z-10" />
 
       <div className="max-w-6xl mx-auto space-y-10">
-        <div className="space-y-5">
+        <div className="space-y-5 text-center">
           <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">AI Consultancy</p>
           <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white leading-tight">{t.thinIntake.title}</h1>
-          <p className="text-zinc-400 text-lg leading-relaxed break-keep max-w-2xl">{t.thinIntake.desc}</p>
+          <p className="text-zinc-400 text-lg leading-relaxed break-keep max-w-2xl mx-auto">{t.thinIntake.desc}</p>
         </div>
 
         <form onSubmit={handleFormSubmit} className="glass p-8 rounded-2xl flex flex-col gap-8 border border-white/10 shadow-2xl max-w-3xl">
