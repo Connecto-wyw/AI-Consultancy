@@ -41,7 +41,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center group">
           <Image
-            src="/CONNNECTO LOGO-01.png"
+            src="/connnecto-logo.png"
             alt="CONNNECTO"
             width={140}
             height={40}
