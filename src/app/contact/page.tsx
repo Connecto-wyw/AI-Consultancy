@@ -38,7 +38,7 @@ export default function ContactPage() {
       <div className="max-w-5xl mx-auto space-y-16">
         <div className="space-y-5">
           <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">{c.label}</p>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white leading-tight">
+          <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white leading-tight">
             {c.title1}<br />
             <span className="text-gradient">{c.title2}</span>
           </h1>
