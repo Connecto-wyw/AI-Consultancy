@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, Sparkles, Loader2, CheckCircle2, X } from "lucide-react";
-import Link from "next/link";
+import { Sparkles, Loader2, CheckCircle2, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/components/LanguageProvider";
 
@@ -62,24 +61,20 @@ export default function NewCasePage() {
   }
 
   return (
-    <main className="min-h-screen p-8 relative overflow-hidden flex flex-col items-center pb-24 pt-12">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] -z-10" />
+    <main className="min-h-screen px-6 py-20 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] -z-10" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] -z-10" />
 
-      <div className="max-w-3xl w-full pt-12 space-y-8 z-10">
-        <Link href="/" className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          {t.thinIntake.back}
-        </Link>
-
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold text-white tracking-tight">{t.thinIntake.title}</h1>
-          <p className="text-zinc-400 text-lg leading-relaxed break-keep">{t.thinIntake.desc}</p>
+      <div className="max-w-3xl mx-auto space-y-10 pt-8">
+        <div className="space-y-5">
+          <p className="text-sm font-semibold tracking-[0.2em] text-purple-400 uppercase">AI Consultancy</p>
+          <h1 className="text-5xl font-black text-white tracking-tight">{t.thinIntake.title}</h1>
+          <p className="text-zinc-400 text-lg leading-relaxed break-keep max-w-2xl">{t.thinIntake.desc}</p>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="glass p-8 rounded-2xl flex flex-col gap-8 mt-8 border border-white/10 shadow-2xl">
+        <form onSubmit={handleFormSubmit} className="glass p-8 rounded-2xl flex flex-col gap-8 border border-white/10 shadow-2xl">
           <div className="space-y-4">
-            <label className="block text-sm font-semibold text-zinc-300">{t.thinIntake.step1}</label>
+            <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">{t.thinIntake.step1}</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {consultingTypes.map((c) => (
                 <button
@@ -103,13 +98,13 @@ export default function NewCasePage() {
           </div>
 
           <div className="space-y-3">
-            <label htmlFor="problem" className="block text-sm font-semibold text-zinc-300">{t.thinIntake.step2}</label>
+            <label htmlFor="problem" className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">{t.thinIntake.step2}</label>
             <textarea
               id="problem"
               rows={6}
               value={problem}
               onChange={(e) => setProblem(e.target.value)}
-              className="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all resize-none shadow-inner"
+              className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all resize-none"
               placeholder={t.thinIntake.placeholder}
               required
             />
@@ -119,12 +114,10 @@ export default function NewCasePage() {
             <p className="text-xs text-zinc-500 max-w-sm break-keep">{t.thinIntake.timing}</p>
             <button
               type="submit"
-              className="group relative inline-flex items-center px-8 py-4 font-semibold text-white transition-all bg-purple-600 hover:bg-purple-500 rounded-xl shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] w-full sm:w-auto justify-center overflow-hidden"
+              className="inline-flex items-center gap-2 px-8 py-4 font-semibold text-white bg-purple-600 hover:bg-purple-500 rounded-xl shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] transition-all w-full sm:w-auto justify-center"
             >
-              <span className="flex items-center gap-2 relative z-10">
-                <Sparkles className="w-5 h-5" />
-                {t.thinIntake.generate}
-              </span>
+              <Sparkles className="w-5 h-5" />
+              {t.thinIntake.generate}
             </button>
           </div>
         </form>
