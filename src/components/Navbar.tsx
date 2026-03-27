@@ -43,9 +43,9 @@ export default function Navbar() {
           <Image
             src="/connnecto-logo.png"
             alt="CONNNECTO"
-            width={140}
-            height={40}
-            className="h-9 w-auto object-contain group-hover:opacity-80 transition-opacity"
+            width={70}
+            height={20}
+            className="h-5 w-auto object-contain group-hover:opacity-80 transition-opacity"
             priority
           />
         </Link>
