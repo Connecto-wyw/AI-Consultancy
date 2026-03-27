@@ -14,11 +14,6 @@ export default function Home() {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] -z-10" />
 
       <div className="max-w-4xl mx-auto text-center space-y-8 z-10 pt-20">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-zinc-300">
-          <span className="flex h-2 w-2 rounded-full bg-purple-500 animate-pulse"></span>
-          {t.landing.badge}
-        </div>
-        
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-gradient pb-2">
           {t.landing.title1}<br />{t.landing.title2}
         </h1>
