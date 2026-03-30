@@ -141,7 +141,6 @@ export default function Home() {
       {/* ── FOOTER ── */}
       <footer className="border-t border-white/5 px-6 py-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
-          <span className="font-black tracking-[0.2em] text-zinc-400">CONNNECTO</span>
           <span>{h.footerRights}</span>
           <Link href="/contact" className="hover:text-white transition-colors">{h.footerContact}</Link>
         </div>
